@@ -94,3 +94,19 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+RSpec.configure do |config|
+  config.before type: :system do
+    driven_by :rack_test
+  end
+
+  config.before type: :system, js: true do
+    driven_by :selenium_chrome_headless
+  end
+end
+
+def sign_in(user)
+  visit login_path
+  fill_in 'Email', with: user.email
+  fill_in 'Password', with: user.password
+  click_button 'Log in'
+end
