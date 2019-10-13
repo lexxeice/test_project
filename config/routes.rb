@@ -8,7 +8,9 @@ Rails.application.routes.draw do
   delete 'logout' => 'sessions#destroy'
   get 'signup' => 'users#new'
   get 'shop' => 'products#new'
+  get 'balance' => 'purse#show'
 
   resources :users
+  resources :purses
   resources :products
 end
