@@ -24,6 +24,13 @@ RSpec.describe PursesController, type: :controller do
     Purse.create(valid_params)
   end
 
+  describe 'GET#show' do
+    before { get :show, params: { id: purse.id } }
+
+    it { expect(response).to be_successful }
+    it { is_expected.to render_template(:show) }
+  end
+
   describe 'PATCH#update' do
     let(:valid_name) do
       {
