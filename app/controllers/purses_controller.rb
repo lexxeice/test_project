@@ -6,6 +6,10 @@ class PursesController < ApplicationController
     @purse = Purse.find(params[:id])
   end
 
+  def create
+    @purse = current_user.purses.create(purse_params)
+  end
+
   def edit
     @purse = Purse.find(params[:id])
   end

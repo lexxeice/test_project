@@ -3,6 +3,10 @@
 class User < ApplicationRecord
   has_one :purse
 
+  after_create do |user|
+    user.create_purse
+  end
+
   attr_accessor :remember_token
 
   before_save { self.email = email.downcase }
@@ -39,5 +43,19 @@ class User < ApplicationRecord
 
   def forget
     update_attribute(:remember_digest, nil)
+  end
+
+  def buy(product)
+    self.purse.balance -= product.price if self.purse.balance >= product.price
+  end
+
+  def pay(money)
+    money = money.abs
+    self.purse.balance -= money if self.purse.balance >= money
+  end
+
+  def replenish(money)
+    money = money.abs
+    self.purse.balance += money
   end
 end
